@@ -1,4 +1,4 @@
-﻿open System
+open System
 
 // Словарь:
 let romanToDecimal = 
@@ -31,17 +31,23 @@ let convertRomanToDecimal (roman: string) =
     | true, value -> Some value
     | false, _ -> None  
 
+let printSequence seq =
+        let items = seq |> Seq.map string |> String.concat " "
+        printfn "%s" items
+
 // Основная функция
 [<EntryPoint>]
 let main argv =
+    printfn "vvod (000 - end):"
+    
     let romanSeq = buildSequence ()
 
-    // Преобразуем в десятичные числа
     let decimalSeq =
         romanSeq
-        |> Seq.choose convertRomanToDecimal  
+        |> Seq.map convertRomanToDecimal  
+        |> Seq.choose id                
 
-    printfn "vvod (000 - end):"
-    printfn "%A" decimalSeq
+    printSequence decimalSeq
+
 
     0
